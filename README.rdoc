@@ -10,7 +10,7 @@ The Obsidian Portal API is new and in a lot of flux. mage-hand is also new and i
 
 You can install mage-hand with the usual 
 
-sudo install mage-handler
+sudo gem install mage-hand
 
 or you can add mage-hand to your gemfile with the following...
 
