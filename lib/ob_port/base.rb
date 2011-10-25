@@ -1,8 +1,15 @@
 module MageHand
   class Base
-    attr_accessor :id
+    @@simple_attributes = []
     
-    def initialize(attributes)
+    def self.attr_simple(method_name)
+      attr_accessor method_name
+      @@simple_attributes << method_name
+    end
+    
+    attr_simple :id
+    
+    def initialize(attributes=nil)
       update_attributes!(attributes)
     end
      
@@ -22,7 +29,15 @@ module MageHand
     def self.model_name
       @_model_name ||= ActiveModel::Name.new(self)
     end
-
+    
+    def self.simple_attributes
+      @@simple_attributes
+    end
+    
+    def simple_attributes
+      self.class.simple_attributes
+    end
+    
     def self.attr_instance(method_name, options={})
        self.class_eval do
         name = method_name.to_s
