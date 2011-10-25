@@ -31,14 +31,11 @@ module MageHand
     end
     
     def to_json(*a)
-      {
-        'id' => self.id,
-        'slug' => self.slug,
-        'name' => self.name,
-        'wiki_page_url' => self.wiki_page_url,
-        'created_at' => self.created_at,
-        'updated_at' => self.updated_at
-      }.to_json(*a)
+      json_hash = {}
+      self.simple_attributes.each do |attribute|
+        json_hash[attribute.to_s] = self.send(attribute)
+      end
+      json_hash.to_json(*a)
     end
     
     def save
