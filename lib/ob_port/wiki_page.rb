@@ -3,17 +3,17 @@ module MageHand
     ROLES = {'game_master' => 'Game Master', 'player' => 'Player'}
     
     # public methods
-    attr_accessor :slug, :name, :wiki_page_url, :campaign, :created_at, :updated_at
+    attr_simple :slug, :name, :wiki_page_url, :campaign, :created_at, :updated_at
     
     # Private/Friends
-    attr_accessor :type, :is_game_master_only, :body, :body_html, :tags
+    attr_simple :type, :is_game_master_only, :body, :body_html, :tags
     inflate_if_nil :body, :body_html
     
     # TODO Move these to the posts subclass when we have it.
-    attr_accessor :post_title, :post_tagline, :post_time
+    attr_simple :post_title, :post_tagline, :post_time
     
     # GM Only fields
-    attr_accessor :game_master_info, :game_master_info_markup
+    attr_simple :game_master_info, :game_master_info_markup
     inflate_if_nil :game_master_info, :game_master_info_markup
     
     def self.load_wiki_pages(campaign_id)
@@ -28,6 +28,25 @@ module MageHand
     
     def is_post?
       type == 'Post'
+    end
+    
+    def to_json(*a)
+      {
+        'id' => self.id,
+        'slug' => self.slug,
+        'name' => self.name,
+        'wiki_page_url' => self.wiki_page_url,
+        'created_at' => self.created_at,
+        'updated_at' => self.updated_at
+      }.to_json(*a)
+    end
+    
+    def save
+      if id # save existing wiki pae
+        
+      else # create new wiki page
+        MageHand::get_client.access_token.post(url, self.to_json)
+      end
     end
     
     private

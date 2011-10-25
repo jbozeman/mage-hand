@@ -2,9 +2,11 @@ module MageHand
   class Base
     @@simple_attributes = []
     
-    def self.attr_simple(method_name)
-      attr_accessor method_name
-      @@simple_attributes << method_name
+    def self.attr_simple(*method_names)
+      method_names.each do |method_name|
+        attr_accessor method_name
+        @@simple_attributes << method_name
+      end
     end
     
     attr_simple :id
