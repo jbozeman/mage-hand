@@ -25,5 +25,21 @@ class TestBase < Test::Unit::TestCase
     should 'have id as a simple attribute' do
       assert MageHand::Base.simple_attributes.include?(:id)
     end
+    
+    should 'be able to declare attributes as inflatable' do
+      flunk 'write the test'
+    end
+    
+    should 'be able to inflate an inflatable attribute' do
+      flunk 'write the test'
+    end
+    
+    should 'be able to get a list of inflatable attributes' do
+      flunk 'write the test'
+    end
+    
+    should 'be able to get a list of all attributes' do
+      flunk 'write the test'
+    end
   end
 end
