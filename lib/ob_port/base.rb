@@ -1,11 +1,13 @@
 module MageHand
   class Base
-    @@simple_attributes = []
+    @@simple_attributes = {}
+    @@instance_attributes = {}
     
     def self.attr_simple(*method_names)
+      @@simple_attributes[self.name] = [] unless @@simple_attributes[self.name]
       method_names.each do |method_name|
         attr_accessor method_name
-        @@simple_attributes << method_name
+        @@simple_attributes[self.name] << method_name
       end
     end
     
@@ -24,6 +26,9 @@ module MageHand
     end
     
     def inflate
+      #if we don't have an id, the opject has not been created on the server yet
+      return unless self.id
+      
       hash = JSON.parse( MageHand::get_client.access_token.get(individual_url).body)
       update_attributes!(hash)
     end
@@ -33,13 +38,40 @@ module MageHand
     end
     
     def self.simple_attributes
-      @@simple_attributes
+      @@simple_attributes[self.name] || []
     end
     
     def simple_attributes
       self.class.simple_attributes
     end
+
+    def self.instance_attributes
+      @@instance_attributes[self.name] || []
+    end
     
+    def instance_attributes
+      self.class.instance_attributes
+    end
+    
+    def self.attributes
+      simple_attributes + instance_attributes
+    end
+      
+    def attributes
+      self.class.attributes
+    end
+
+    def to_json(*a)
+      json_hash = {}
+      self.simple_attributes.each do |attribute|
+        json_hash[attribute.to_s] = self.send(attribute) if self.send(attribute)
+      end
+      self.instance_attributes.each do |attribute|
+        json_hash[attribute.to_s] = self.send(attribute).to_json if self.send(attribute)
+      end
+      json_hash.to_json(*a)
+    end
+        
     def self.attr_instance(method_name, options={})
        self.class_eval do
         name = method_name.to_s
@@ -55,6 +87,9 @@ module MageHand
         CODE
         puts code if ENV['DEBUG']
         module_eval code
+        
+        @@instance_attributes[self.name] = [] unless @@instance_attributes[self.name]
+        @@instance_attributes[self.name] << method_name
       end
     end
     

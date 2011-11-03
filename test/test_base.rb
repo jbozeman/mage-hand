@@ -22,24 +22,34 @@ class TestBase < Test::Unit::TestCase
       assert @instance.simple_attributes.include?(:second_attribute)
     end
     
+    should 'be able to add an instance of another class as an attribute' do
+      MageHand::Base.attr_instance :test_campaign, :class_name => 'Campaign'
+      @instance = MageHand::Base.new
+      @instance.test_campaign = {:name => "A Great Time"}
+      assert_equal "A Great Time", @instance.test_campaign.name
+    end
+    
+    should 'be able to get a list of instance attributes' do
+      MageHand::Base.attr_instance :test_campaign, :class_name => 'Campaign'
+      @instance = MageHand::Base.new
+      
+      assert MageHand::Base.instance_attributes.include?(:test_campaign)
+      assert @instance.instance_attributes.include?(:test_campaign)
+    end
+    
+    should 'be able to get a list of all declared attributes' do
+      MageHand::Base.attr_instance :test_campaign, :class_name => 'Campaign'
+      MageHand::Base.attr_simple :test_attribute
+      @instance = MageHand::Base.new
+      
+      assert MageHand::Base.attributes.include?(:test_campaign)
+      assert @instance.attributes.include?(:test_campaign)
+      assert MageHand::Base.attributes.include?(:test_attribute)
+      assert @instance.attributes.include?(:test_attribute)
+    end
+    
     should 'have id as a simple attribute' do
       assert MageHand::Base.simple_attributes.include?(:id)
-    end
-    
-    should 'be able to declare attributes as inflatable' do
-      flunk 'write the test'
-    end
-    
-    should 'be able to inflate an inflatable attribute' do
-      flunk 'write the test'
-    end
-    
-    should 'be able to get a list of inflatable attributes' do
-      flunk 'write the test'
-    end
-    
-    should 'be able to get a list of all attributes' do
-      flunk 'write the test'
-    end
+    end    
   end
 end

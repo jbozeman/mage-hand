@@ -30,19 +30,16 @@ module MageHand
       type == 'Post'
     end
     
-    def to_json(*a)
-      json_hash = {}
-      self.simple_attributes.each do |attribute|
-        json_hash[attribute.to_s] = self.send(attribute)
-      end
-      json_hash.to_json(*a)
-    end
-    
-    def save
+    def save!
       if id # save existing wiki pae
         
       else # create new wiki page
-        MageHand::get_client.access_token.post(url, self.to_json)
+        self.update_attributes!(
+          JSON.parse(
+            MageHand::get_client.access_token.post(self.class.collection_url(self.campaign.id),
+            {'wiki_page' => self}.to_json)
+          ).body
+        )
       end
     end
     
