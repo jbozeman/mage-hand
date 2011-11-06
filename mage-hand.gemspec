@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{mage-hand}
-  s.version = "0.3.2"
+  s.version = "0.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Steven Hammond"]
-  s.date = %q{2011-10-24}
+  s.date = %q{2011-11-06}
   s.description = %q{mage-hand is a ghostly hand that reaches across the internet to access the Obsidian Portal API.}
   s.email = %q{shammond@northpub.com}
   s.extra_rdoc_files = [
@@ -35,9 +35,9 @@ Gem::Specification.new do |s|
     "lib/ob_port/wiki_page.rb",
     "mage-hand.gemspec",
     "test/helper.rb",
+    "test/test_base.rb",
     "test/test_campaign.rb",
-    "test/test_client.rb",
-    "test/test_mage-hand.rb"
+    "test/test_client.rb"
   ]
   s.homepage = %q{http://github.com/shammond42/mage-hand}
   s.licenses = ["MIT"]
@@ -46,9 +46,9 @@ Gem::Specification.new do |s|
   s.summary = %q{Ruby wrapper around the Obsidian Portal API}
   s.test_files = [
     "test/helper.rb",
+    "test/test_base.rb",
     "test/test_campaign.rb",
-    "test/test_client.rb",
-    "test/test_mage-hand.rb"
+    "test/test_client.rb"
   ]
 
   if s.respond_to? :specification_version then
