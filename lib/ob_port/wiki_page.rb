@@ -3,7 +3,7 @@ module MageHand
     ROLES = {'game_master' => 'Game Master', 'player' => 'Player'}
     
     # public methods
-    attr_simple :slug, :name, :wiki_page_url, :campaign, :created_at, :updated_at
+    attr_simple :slug, :name, :wiki_page_url, :created_at, :updated_at
     
     # Private/Friends
     attr_simple :type, :is_game_master_only, :body, :body_html, :tags
@@ -15,6 +15,9 @@ module MageHand
     # GM Only fields
     attr_simple :game_master_info, :game_master_info_markup
     inflate_if_nil :game_master_info, :game_master_info_markup
+    
+    attr_instance :campaign
+    inflate_if_nil :campaign
     
     def self.load_wiki_pages(campaign_id)
       wiki_hashes = JSON.parse(
@@ -30,16 +33,27 @@ module MageHand
       type == 'Post'
     end
     
+    def to_hash
+      attribute_hash = {}
+      simple_attributes.each do |att|
+        attribute_hash[att] = self.send(att) unless self.send(att).nil?
+      end
+      
+      attribute_hash
+    end
+    
+    def to_json
+      to_hash.to_json
+    end
+    
     def save!
       if id # save existing wiki pae
         
       else # create new wiki page
-        self.update_attributes!(
-          JSON.parse(
-            MageHand::get_client.access_token.post(self.class.collection_url(self.campaign.id),
-            {'wiki_page' => self}.to_json)
-          ).body
-        )
+        json_body = {'wiki_page' => self.to_hash}.to_json
+        @response = MageHand.get_client.access_token.post(self.class.collection_url(self.campaign.id),
+          json_body,  {'content-type' => 'application/x-www-form-urlencoded'})
+        self.update_attributes!(JSON.parse(@response.body))
       end
     end
     
