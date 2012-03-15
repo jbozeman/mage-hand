@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "mage-hand"
-  s.version = "0.4.0"
+  s.version = "0.4.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Steven Hammond"]
-  s.date = "2012-03-14"
+  s.date = "2012-03-15"
   s.description = "mage-hand is a ghostly hand that reaches across the internet to access the Obsidian Portal API."
   s.email = "shammond@northpub.com"
   s.extra_rdoc_files = [
@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".document",
+    ".rvmrc",
     "Gemfile",
     "Gemfile.lock",
     "LICENSE.txt",
@@ -57,7 +58,6 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<bundler>, ["~> 1.1.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.8.0"])
       s.add_development_dependency(%q<mocha>, [">= 0.9.8"])
-      s.add_development_dependency(%q<redgreen>, [">= 0"])
       s.add_development_dependency(%q<webmock>, [">= 1.6.2"])
       s.add_runtime_dependency(%q<oauth>, [">= 0.4.4"])
     else
@@ -69,7 +69,6 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<bundler>, ["~> 1.1.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.8.0"])
       s.add_dependency(%q<mocha>, [">= 0.9.8"])
-      s.add_dependency(%q<redgreen>, [">= 0"])
       s.add_dependency(%q<webmock>, [">= 1.6.2"])
       s.add_dependency(%q<oauth>, [">= 0.4.4"])
     end
@@ -82,7 +81,6 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<bundler>, ["~> 1.1.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.8.0"])
     s.add_dependency(%q<mocha>, [">= 0.9.8"])
-    s.add_dependency(%q<redgreen>, [">= 0"])
     s.add_dependency(%q<webmock>, [">= 1.6.2"])
     s.add_dependency(%q<oauth>, [">= 0.4.4"])
   end
