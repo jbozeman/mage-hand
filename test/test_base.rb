@@ -1,4 +1,4 @@
-require 'test/helper'
+require 'helper'
 
 class TestBase < Test::Unit::TestCase
   context 'the Base class' do    

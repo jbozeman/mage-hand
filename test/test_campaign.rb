@@ -1,4 +1,4 @@
-require 'test/helper'
+require 'helper'
 
 class TestCampaign < Test::Unit::TestCase
   context 'an instance of the Campaign class' do

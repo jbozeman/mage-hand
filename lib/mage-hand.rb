@@ -7,6 +7,7 @@ require 'ob_port/user'
 require 'ob_port/campaign'
 require 'ob_port/wiki_page'
 require 'ob_port/errors'
+
 module MageHand
   def self.set_app_keys(app_key, app_secret)
     Client.set_app_keys(app_key, app_secret)
@@ -17,7 +18,10 @@ module MageHand
     Client.get_client(session_request_token, session_access_token_key, session_access_token_secret,
           callback, params)
   end
-  
+end
+
+module MageHandController
+  include MageHand
   protected
   
   def obsidian_portal_login_required
@@ -39,8 +43,20 @@ module MageHand
   end
   
   def store_tokens
+    current_user.save_op_tokens(@mage_client.access_token_key, @mage_client.access_token_secret)
     session[:request_token] = @mage_client.request_token
     session[:access_token_key] = @mage_client.access_token_key
     session[:access_token_secret] = @mage_client.access_token_secret
+  end
+end
+
+module MageHandUser
+  include MageHand
+  
+  def save_op_tokens(access_token_key, access_token_secret)
+    self.access_token_key = access_token_key
+    self.access_token_secret = access_token_secret
+    
+    save!
   end
 end
