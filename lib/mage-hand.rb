@@ -43,7 +43,7 @@ module MageHandController
   end
   
   def store_tokens
-    current_user.save_op_tokens(@mage_client.access_token_key, @mage_client.access_token_secret)
+    current_user.save_op_tokens(@mage_client.access_token_key, @mage_client.access_token_secret) if current_user
     session[:request_token] = @mage_client.request_token
     session[:access_token_key] = @mage_client.access_token_key
     session[:access_token_secret] = @mage_client.access_token_secret
