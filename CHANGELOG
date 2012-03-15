@@ -1,0 +1,7 @@
+ 0.5.0
+    - Renamed MageHand to MageHandController for the controller include
+    - Renamed MageHandController::logged_in? to MageHandController::logged_in_op?
+    - Error classes
+    - Added MageHandUser to provide common user functionality
+    - Updated documentation
+    - MOAR Tests
