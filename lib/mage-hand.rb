@@ -31,12 +31,12 @@ module MageHandController
     store_tokens
     return true if logged_in?
 
-    redirect_to @mage_client.request_token.authorize_url
+    redirect_to obsidian_portal.request_token.authorize_url
     false
   end
   
   def logged_in_op?
-    !!@obsidian_portal && @obsidian_portal.logged_in?
+    !!obsidian_portal && obsidian_portal.logged_in?
   end
   
   def obsidian_portal
@@ -45,9 +45,9 @@ module MageHandController
   end
   
   def store_tokens
-    current_user.save_op_tokens(@mage_client.access_token_key, @mage_client.access_token_secret) if current_user
-    session[:request_token] = @mage_client.request_token
-    session[:access_token_key] = @mage_client.access_token_key
-    session[:access_token_secret] = @mage_client.access_token_secret
+    current_user.save_op_tokens(obsidian_portal.access_token_key, obsidian_portal.access_token_secret) if current_user
+    session[:request_token] = obsidian_portal.request_token
+    session[:access_token_key] = obsidian_portal.access_token_key
+    session[:access_token_secret] = obsidian_portal.access_token_secret
   end
 end
