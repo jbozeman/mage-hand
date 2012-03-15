@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "mage-hand"
-  s.version = "0.4.1"
+  s.version = "0.4.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Steven Hammond"]
@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
     ".rvmrc",
+    "CHANGELOG",
     "Gemfile",
     "Gemfile.lock",
     "LICENSE.txt",
@@ -27,6 +28,7 @@ Gem::Specification.new do |s|
     "Rakefile",
     "TODO",
     "VERSION",
+    "lib/mage-hand-user.rb",
     "lib/mage-hand.rb",
     "lib/ob_port/base.rb",
     "lib/ob_port/campaign.rb",
@@ -38,7 +40,9 @@ Gem::Specification.new do |s|
     "test/helper.rb",
     "test/test_base.rb",
     "test/test_campaign.rb",
-    "test/test_client.rb"
+    "test/test_client.rb",
+    "test/test_mage_hand_controller.rb",
+    "test/test_mage_hand_user.rb"
   ]
   s.homepage = "http://github.com/shammond42/mage-hand"
   s.licenses = ["MIT"]
