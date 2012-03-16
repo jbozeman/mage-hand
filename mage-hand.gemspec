@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "mage-hand"
-  s.version = "0.4.3"
+  s.version = "0.4.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Steven Hammond"]
-  s.date = "2012-03-15"
+  s.date = "2012-03-16"
   s.description = "mage-hand is a ghostly hand that reaches across the internet to access the Obsidian Portal API."
   s.email = "shammond@northpub.com"
   s.extra_rdoc_files = [
