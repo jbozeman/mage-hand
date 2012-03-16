@@ -29,7 +29,7 @@ module MageHandController
   def obsidian_portal_login_required
     obsidian_portal
     store_tokens
-    return true if logged_in?
+    return true if logged_in_op?
 
     redirect_to obsidian_portal.request_token.authorize_url
     false
