@@ -19,4 +19,5 @@ require 'mage-hand'
 require 'oauth'
 
 class Test::Unit::TestCase
+
 end
