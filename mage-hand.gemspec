@@ -65,7 +65,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<webmock>, [">= 1.6.2"])
       s.add_runtime_dependency(%q<oauth>, [">= 0.4.4"])
     else
-      s.add_dependency(%q<oauth>, [">= 0.4.4"])
+      s.add_dependency(%q<oauth>, ["= 0.4.4"])
       s.add_dependency(%q<json>, [">= 0"])
       s.add_dependency(%q<i18n>, [">= 0"])
       s.add_dependency(%q<activesupport>, [">= 0"])

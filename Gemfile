@@ -2,7 +2,7 @@ source "http://rubygems.org"
 # Add dependencies required to use your gem here.
 # Example:
 #   gem "activesupport", ">= 2.3.5"
-gem "oauth", ">= 0.4.4"
+gem "oauth", "= 0.4.4"
 gem "json"
 gem 'i18n'
 gem 'rails', ">= 3.0.0"

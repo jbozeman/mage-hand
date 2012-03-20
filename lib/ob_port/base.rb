@@ -107,7 +107,7 @@ module MageHand
           def #{name}=(new_#{name})
             @#{name} = []
             new_#{name}.each do |#{name.singularize}|
-              @#{name} << #{class_name}.new(#{name.singularize})
+              @#{name} << #{class_name}.new(client, #{name.singularize})
             end
           end
         CODE

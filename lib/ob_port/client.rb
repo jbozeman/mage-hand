@@ -48,12 +48,12 @@ module MageHand
     end
     
     def current_user
-      @current_user ||= MageHand::User.new(JSON.parse(access_token.get('/v1/users/me.json').body))
+      @current_user ||= MageHand::User.new(self, JSON.parse(access_token.get('/v1/users/me.json').body))
     end
     alias :me :current_user
     
     def campaign(id)
-      MageHand::Campaign.new(JSON.parse(access_token.get("/v1/campaigns/#{id}.json").body))
+      MageHand::Campaign.new(self, JSON.parse(access_token.get("/v1/campaigns/#{id}.json").body))
     end
     
     def create_wiki_page(options)
