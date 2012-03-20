@@ -1,5 +1,6 @@
 module MageHand
   class Base
+    attr_accessor :client
     @@simple_attributes = {}
     @@instance_attributes = {}
     
@@ -13,7 +14,8 @@ module MageHand
     
     attr_simple :id
     
-    def initialize(attributes=nil)
+    def initialize(client, attributes=nil)
+      self.client = client
       update_attributes!(attributes)
     end
      
@@ -29,7 +31,7 @@ module MageHand
       #if we don't have an id, the opject has not been created on the server yet
       return unless self.id
       
-      hash = JSON.parse( MageHand::get_client.access_token.get(individual_url).body)
+      hash = JSON.parse(client.access_token.get(individual_url).body)
       update_attributes!(hash)
     end
     
@@ -82,7 +84,7 @@ module MageHand
           end
 
           def #{name}=(new_#{name})
-            @#{name} = #{class_name}.new(new_#{name.singularize})
+            @#{name} = #{class_name}.new(client, new_#{name.singularize})
           end
         CODE
         puts code if ENV['DEBUG']

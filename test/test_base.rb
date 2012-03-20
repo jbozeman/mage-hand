@@ -4,7 +4,7 @@ class TestBase < Test::Unit::TestCase
   context 'the Base class' do    
     should 'use the attr_simple method to add an attribute' do
       MageHand::Base.attr_simple :test_attribute, :second_attribute
-      @instance = MageHand::Base.new
+      @instance = MageHand::Base.new(nil)
       @instance.test_attribute = 'Hello'
       @instance.second_attribute = 'World'
       assert_equal 'Hello', @instance.test_attribute
@@ -13,7 +13,7 @@ class TestBase < Test::Unit::TestCase
     
     should 'be able to get a list of simple attributes' do
       MageHand::Base.attr_simple :test_attribute, :second_attribute
-      @instance = MageHand::Base.new
+      @instance = MageHand::Base.new(nil)
       
       assert MageHand::Base.simple_attributes.include?(:test_attribute)
       assert @instance.simple_attributes.include?(:test_attribute)
@@ -23,15 +23,16 @@ class TestBase < Test::Unit::TestCase
     end
     
     should 'be able to add an instance of another class as an attribute' do
+      # MageHand::Client.set_app_keys('asdfasdf', 'asdfasdfasdfasdfasdf') 
       MageHand::Base.attr_instance :test_campaign, :class_name => 'Campaign'
-      @instance = MageHand::Base.new
+      @instance = MageHand::Base.new(nil)
       @instance.test_campaign = {:name => "A Great Time"}
       assert_equal "A Great Time", @instance.test_campaign.name
     end
     
     should 'be able to get a list of instance attributes' do
       MageHand::Base.attr_instance :test_campaign, :class_name => 'Campaign'
-      @instance = MageHand::Base.new
+      @instance = MageHand::Base.new(nil)
       
       assert MageHand::Base.instance_attributes.include?(:test_campaign)
       assert @instance.instance_attributes.include?(:test_campaign)
@@ -40,7 +41,7 @@ class TestBase < Test::Unit::TestCase
     should 'be able to get a list of all declared attributes' do
       MageHand::Base.attr_instance :test_campaign, :class_name => 'Campaign'
       MageHand::Base.attr_simple :test_attribute
-      @instance = MageHand::Base.new
+      @instance = MageHand::Base.new(nil)
       
       assert MageHand::Base.attributes.include?(:test_campaign)
       assert @instance.attributes.include?(:test_campaign)

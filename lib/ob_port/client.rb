@@ -56,6 +56,10 @@ module MageHand
       MageHand::Campaign.new(JSON.parse(access_token.get("/v1/campaigns/#{id}.json").body))
     end
     
+    def create_wiki_page(options)
+      MageHand::WikiPage.new(self, options)
+    end
+    
     protected
     
     def self.reset_client

@@ -4,7 +4,7 @@ class TestCampaign < Test::Unit::TestCase
   context 'an instance of the Campaign class' do
     should 'know its url' do
       id_string = 'asdf12341asdf1234'
-      campaign = MageHand::Campaign.new(:id => id_string)
+      campaign = MageHand::Campaign.new(nil, :id => id_string)
       assert_equal "/v1/campaigns/#{id_string}.json", campaign.send(:individual_url)
     end
   end
@@ -26,7 +26,7 @@ class TestCampaign < Test::Unit::TestCase
     end
     
     should 'be able to initialize from a mini object' do
-      campaign = MageHand::Campaign.new(@mini_fields)
+      campaign = MageHand::Campaign.new(nil, @mini_fields)
       assert_not_nil campaign
       @mini_fields.each do |key, value|
         assert_equal campaign.send(key), value
@@ -34,7 +34,7 @@ class TestCampaign < Test::Unit::TestCase
     end
     
     should 'be able to initialize from a complete object' do
-      campaign = MageHand::Campaign.new(@full_fields)
+      campaign = MageHand::Campaign.new(nil, @full_fields)
       assert_not_nil campaign
       @full_fields.each do |key, value|
         assert_equal campaign.send(key), value
