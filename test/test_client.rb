@@ -26,7 +26,6 @@ class TestClient < Test::Unit::TestCase
       OAuth::AccessToken.any_instance.stubs(:post).returns(response)
       OAuth::Consumer.any_instance.stubs(:get_request_token).returns(@request_token)
       
-      MageHand::Client.send(:reset_client)
       MageHand::Client.set_app_keys('asdfasdf', 'asdfasdfasdfasdfasdf')  
     end
     should "be configured to use different urls for authentication and api access" do

@@ -16,7 +16,6 @@ class TestMageHandController < ActionController::TestCase
   
   context 'The Mage Hand Controller Module' do
     setup do
-      MageHand::Client.send(:reset_client)
       MageHand::Client.set_app_keys('asdfasdf', 'asdfasdfasdfasdfasdf')
       stub_request(:post, "https://www.obsidianportal.com/oauth/request_token").
         to_return(:status => 200, :body => "", :headers => {})
