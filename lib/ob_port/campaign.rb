@@ -39,7 +39,7 @@ module MageHand
     end
     
     def wiki_pages
-      @wiki_pages ||= MageHand::WikiPage.load_wiki_pages(self.id)
+      @wiki_pages ||= MageHand::WikiPage.load_wiki_pages(self)
     end
     
      def posts

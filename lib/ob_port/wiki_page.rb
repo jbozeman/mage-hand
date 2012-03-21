@@ -19,9 +19,9 @@ module MageHand
     attr_instance :campaign
     inflate_if_nil :campaign
     
-    def self.load_wiki_pages(campaign_id)
-      wiki_hashes = JSON.parse(client.access_token.get(collection_url(campaign_id)).body)
-      wiki_hashes.map {|hash| WikiPage.new(hash)}
+    def self.load_wiki_pages(campaign)
+      wiki_hashes = JSON.parse(campaign.client.access_token.get(collection_url(campaign.id)).body)
+      wiki_hashes.map {|hash| WikiPage.new(campaign.client, hash)}
     end
     
     def campaign=(campaign_hash)
@@ -61,6 +61,8 @@ module MageHand
         @response = client.access_token.post(self.class.collection_url(self.campaign.id),
           json_body,  {'content-type' => 'application/x-www-form-urlencoded'})
         puts @response.inspect
+        puts @response.message
+        puts @response.body
         self.update_attributes!(JSON.parse(@response.body))
       end
     end
