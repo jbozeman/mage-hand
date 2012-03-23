@@ -49,20 +49,9 @@ module MageHand
       if id # save existing wiki pae
         
       else # create new wiki page
-        puts '#########'
-        puts client.logged_in?
-        puts self.campaign.inspect
-        puts self.class.collection_url(self.campaign.id)
-        puts client.access_token.inspect
-        puts client.campaign(self.campaign.id).name
-        
         json_body = {'wiki_page' => self.to_hash}.to_json
-        puts json_body
         @response = client.access_token.post(self.class.collection_url(self.campaign.id),
           json_body,  {'content-type' => 'application/x-www-form-urlencoded'})
-        puts @response.inspect
-        puts @response.message
-        puts @response.body
         self.update_attributes!(JSON.parse(@response.body))
       end
     end
