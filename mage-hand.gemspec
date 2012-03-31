@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "mage-hand"
-  s.version = "0.4.8"
+  s.version = "0.4.9"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Steven Hammond"]
-  s.date = "2012-03-23"
+  s.date = "2012-03-31"
   s.description = "mage-hand is a ghostly hand that reaches across the internet to access the Obsidian Portal API."
   s.email = "shammond@northpub.com"
   s.extra_rdoc_files = [
@@ -34,7 +34,7 @@ Gem::Specification.new do |s|
     "lib/ob_port/campaign.rb",
     "lib/ob_port/client.rb",
     "lib/ob_port/errors.rb",
-    "lib/ob_port/user.rb",
+    "lib/ob_port/op_user.rb",
     "lib/ob_port/wiki_page.rb",
     "mage-hand.gemspec",
     "test/helper.rb",
