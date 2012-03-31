@@ -48,7 +48,7 @@ module MageHand
     end
     
     def current_user
-      @current_user ||= MageHand::User.new(self, JSON.parse(access_token.get('/v1/users/me.json').body))
+      @current_user ||= OPUser.new(self, JSON.parse(access_token.get('/v1/users/me.json').body))
     end
     alias :me :current_user
     

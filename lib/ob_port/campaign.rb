@@ -6,7 +6,7 @@ module MageHand
     attr_simple :name, :campaign_url, :role, :visibility
     
     attr_simple :slug
-    attr_instance :game_master, :class_name => 'User'
+    attr_instance :game_master, :class_name => 'OPUser'
     inflate_if_nil :game_master, :slug
     
     # Private/Friends
@@ -17,7 +17,7 @@ module MageHand
     attr_simple :lat, :lng
     inflate_if_nil :lat, :lng
     
-    attr_array :players, :class_name => 'User'
+    attr_array :players, :class_name => 'OPUser'
     inflate_if_nil :players
 
     def self.find_by_slug(slug)
