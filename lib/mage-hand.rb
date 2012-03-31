@@ -3,7 +3,7 @@ require 'json'
 require 'active_support/core_ext/string'
 require 'ob_port/client'
 require 'ob_port/base'
-require 'ob_port/user'
+require 'ob_port/op_user'
 require 'ob_port/campaign'
 require 'ob_port/wiki_page'
 require 'ob_port/errors'
@@ -40,7 +40,7 @@ module MageHandController
   end
   
   def obsidian_portal
-    @obsidian_portal ||= Client.get_client(session[:request_token], session[:access_token_key], 
+    @obsidian_portal ||= MageHand.get_client(session[:request_token], session[:access_token_key], 
       session[:access_token_secret], request.url, params)
   end
   

@@ -7,4 +7,9 @@ module MageHandUser
     
     save!
   end
+
+  def obsidian_portal
+    @obsidian_portal ||= MageHand.get_client(nil, access_token_key, 
+      access_token_secret)
+  end
 end

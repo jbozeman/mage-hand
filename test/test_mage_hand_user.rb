@@ -11,6 +11,11 @@ class TestMageHandUser < Test::Unit::TestCase
   end
   
   context 'The Mage Hand User Module' do
+    setup do
+      MageHand::Client.set_app_keys('asdfasdf', 'asdfasdfasdfasdfasdf')
+      stub_request(:post, "https://www.obsidianportal.com/oauth/request_token").
+        to_return(:status => 200, :body => "", :headers => {})
+    end
     should 'be able to save op authorization tokens' do
       user = User.new
       assert !user.saved
@@ -18,6 +23,11 @@ class TestMageHandUser < Test::Unit::TestCase
       assert user.saved
       assert_equal 'abcdefg', user.access_token_key
       assert_equal '1234567', user.access_token_secret
+    end
+
+    should 'return an obsidian portal client' do
+      user = User.new
+      assert user.obsidian_portal.instance_of? MageHand::Client
     end
   end
 end
