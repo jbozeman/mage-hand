@@ -52,7 +52,13 @@ module MageHand
         json_body = {'wiki_page' => self.to_hash}.to_json
         @response = client.access_token.post(self.class.collection_url(self.campaign.id),
           json_body,  {'content-type' => 'application/x-www-form-urlencoded'})
-        self.update_attributes!(JSON.parse(@response.body))
+  puts "#{@response.code}: #{@response.message}"
+  puts @response.body
+        if @response.code == 200
+          self.update_attributes!(JSON.parse(@response.body))
+        else
+          raise WikiPageExists if @response.body =~ /Name has already been taken/
+        end
       end
     end
     
