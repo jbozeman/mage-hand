@@ -53,10 +53,13 @@ module MageHand
         @response = client.access_token.post(self.class.collection_url(self.campaign.id),
           json_body,  {'content-type' => 'application/x-www-form-urlencoded'})
 
-        if @response.code == 201
+        if @response.code.to_i == 201
           self.update_attributes!(JSON.parse(@response.body))
         else
+puts @response.body
+puts @response.code
           raise WikiPageExists if @response.body =~ /Name has already been taken/
+          raise WikiPageError(@response.body)
         end
       end
     end
