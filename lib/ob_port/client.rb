@@ -32,6 +32,10 @@ module MageHand
       !!access_token_secret && !!access_token_key
     end
     
+    def authorized?
+      logged_in? && !!current_user
+    end
+
     def consumer
       raise(OAuthConfigurationError, "Need to set application key and secret before initializing a consumer.") unless
         @@key && @@secret
@@ -48,7 +52,11 @@ module MageHand
     end
     
     def current_user
-      @current_user ||= OPUser.new(self, JSON.parse(access_token.get('/v1/users/me.json').body))
+      return @current_user if @current_user
+
+      response = access_token.get('/v1/users/me.json')
+      return nil if response.code == '401'
+      @current_user = OPUser.new(self, JSON.parse(response.body))
     end
     alias :me :current_user
     

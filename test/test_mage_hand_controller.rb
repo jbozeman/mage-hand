@@ -19,6 +19,9 @@ class TestMageHandController < ActionController::TestCase
       MageHand::Client.set_app_keys('asdfasdf', 'asdfasdfasdfasdfasdf')
       stub_request(:post, "https://www.obsidianportal.com/oauth/request_token").
         to_return(:status => 200, :body => "", :headers => {})
+      stub_request(:get, "https://www.obsidianportal.com/v1/users/me.json").
+  to_return(:status => 200, :body => '{"id" : "123412341234",
+ "username" : "Bilbo"}', :headers => {})
     end
     
     should 'return an obsidian portal client' do

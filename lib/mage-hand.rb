@@ -31,12 +31,19 @@ module MageHandController
     store_tokens
     return true if logged_in_op?
 
-    redirect_to obsidian_portal.request_token.authorize_url
+    if obsidian_portal.request_token
+      redirect_to obsidian_portal.request_token.authorize_url
+    else # if not request_token we must have lost authrization. Clear access tokens
+         # and redo the request to trigger authorization.
+      current_user.save_op_tokens(nil, nil)
+      flash[:error] = 'You must authorize Lost Tools to access your Obsidian Portal accout.'
+      redirect_to request.url
+    end
     false
   end
   
   def logged_in_op?
-    !!obsidian_portal && obsidian_portal.logged_in?
+    !!obsidian_portal && obsidian_portal.logged_in? && obsidian_portal.authorized?
   end
   
   def obsidian_portal
