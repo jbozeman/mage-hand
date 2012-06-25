@@ -1,12 +1,12 @@
-= mage-hand
+h1. mage-hand
 
 mage-hand is a ghostly hand that reaches across the internet to access the Obsidian Portal API. At the moment, mage-had only works with Rails Apps. Support for other things is coming soon.
 
-== Warning
+h2. Warning
 
 The Obsidian Portal API is new and in a lot of flux. mage-hand is also new and in a lot of flux. Together these make a very unstable combination. Use with caution.
 
-== Getting Started
+h2. Getting Started
 
 You can install mage-hand with the usual 
 
@@ -14,14 +14,14 @@ sudo gem install mage-hand
 
 or you can add mage-hand to your gemfile with the following...
 
-gem 'mage-hand'
+bc. gem 'mage-hand'
 
-== Usage
+h2. Usage
 
 MageHand handles the OAuth authentication to Obsidian Portal for you. To do that from a Rails controller
 try this...
 
-class CoolController < ApplicationController
+bc. class CoolController < ApplicationController
   include MageHand
   before_filter :obsidian_portal_login_required
   
@@ -29,20 +29,20 @@ This will handle all of the authenticate and redirecting etc. You will be return
 
 You can get objects from Obsidian Portal by calling the obsidian_portal object. obsidian_portal is a method that gets added to your controller by the include. 
 
-obsidian_portal.current_user will get the currently authenticated user. obsidian_portal.me will
-do the same thing.
+@obsidian_portal.current_user@ will get the currently authenticated user.
+@obsidian_portal.me@ willdo the same thing.
 
 To make a direct call to the API, you have to do it through the access token. 
 
-obsidian_portal.access_token.get('/v1/users/me.json').body
+@obsidian_portal.access_token.get('/v1/users/me.json').body@
 
-== Known Issues
+h2. Known Issues
 
-1. Only finding a user through current_user or me is currently supported.
-2. Should hide accesss token and have get work correctly on the obsidian_portal instance
+# Only finding a user through current_user or me is currently supported.
+# Should hide accesss token and have get work correctly on the obsidian_portal instance
 
-== Contributing to mage-hand
- 
+h2. Contributing to mage-hand
+
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
 * Fork the project
@@ -51,7 +51,7 @@ obsidian_portal.access_token.get('/v1/users/me.json').body
 * Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
 * Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
-== Copyright
+h2. Copyright
 
 Copyright (c) 2010 Steven Hammond. See LICENSE.txt for
 further details.
