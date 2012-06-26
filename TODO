@@ -1,6 +1,6 @@
 Trim down the dependencies: Don't include rails for just some string manipulation functions
 
-Campaigns:
+Base
   Should be able to initialize from a json string or an attribute hash
 
 Look at REE singularize of Campaign vs. Campaign(s)
