@@ -3,7 +3,6 @@ Trim down the dependencies: Don't include rails for just some string manipulatio
 Campaigns:
   Handle location properly
   Should be able to initialize from a json string or an attribute hash
-  posts should be sorted
   should be able to get wiki pages without adventure logs
 
 Look at REE singularize of Campaign vs. Campaign(s)

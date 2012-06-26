@@ -59,10 +59,10 @@ module MageHand
     end
     
     # Get all of the adventure log posts for this campaign. These are not currently
-    # sorted in any particular order.
-    # @return [Array] array of adventure log posts.
+    # sorted by post_time, oldest first.
+    # @return [Array] sorted array of adventure log posts.
     def posts
-      @posts ||= wiki_pages.select{|page| page.is_post?}
+      @posts ||= wiki_pages.select{|page| page.is_post?}.sort_by(&:post_time)
     end
      
      protected

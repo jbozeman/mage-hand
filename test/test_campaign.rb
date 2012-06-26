@@ -58,12 +58,15 @@ class TestCampaign < Test::Unit::TestCase
       @campaign = MageHand::Campaign.new(nil, @mini_fields)
       MageHand::WikiPage.expects(:load_wiki_pages).with(@campaign).returns([
         MageHand::WikiPage.new(nil, {id: 'asdfadf0', type: 'WikiPage'}),
-        MageHand::WikiPage.new(nil, {id: 'asdfadf1', type: 'Post'}),
-        MageHand::WikiPage.new(nil, {id: 'asdfadf2', type: 'WikiPage'})
+        MageHand::WikiPage.new(nil, {id: 'asdfadf1', type: 'Post', post_time: '2008-04-24T22:00:00Z'}),
+        MageHand::WikiPage.new(nil, {id: 'asdfadf2', type: 'WikiPage'}),
+        MageHand::WikiPage.new(nil, {id: 'asdfadf3', type: 'Post', post_time: '2007-04-24T22:00:00Z'})
         ])
 
-      assert_equal 3, @campaign.wiki_pages.count, 'should have 3 pages total'
-      assert_equal 1, @campaign.posts.count, 'should have 1 post'
+      assert_equal 4, @campaign.wiki_pages.count, 'should have 3 pages total'
+      assert_equal 2, @campaign.posts.count, 'should have 1 post'
+      assert_equal 'asdfadf3', @campaign.posts.first.id
+      assert_equal 'asdfadf1', @campaign.posts.last.id
     end
 
     should 'know its url' do
