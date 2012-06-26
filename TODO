@@ -1,11 +1,10 @@
 Trim down the dependencies: Don't include rails for just some string manipulation functions
 
 Campaigns:
-  Handle location properly
   Should be able to initialize from a json string or an attribute hash
-  should be able to get wiki pages without adventure logs
 
 Look at REE singularize of Campaign vs. Campaign(s)
 
 Fix instructions
 
+Make inflate_if_nil an option to attr_simple and attr_instance

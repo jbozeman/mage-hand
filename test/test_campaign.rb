@@ -83,6 +83,15 @@ class TestCampaign < Test::Unit::TestCase
       end
     end
 
+    should 'know its location' do
+      @mini_fields[:location] = {lat: 32.4567, lon: 75.4567}
+      campaign = MageHand::Campaign.new(nil, @mini_fields)
+
+      assert campaign.location.instance_of? MageHand::Location
+      assert_equal @mini_fields[:location][:lat], campaign.location.lat
+      assert_equal @mini_fields[:location][:lng], campaign.location.lng
+    end
+
     should 'know its url' do
       id_string = 'asdf12341asdf1234'
       campaign = MageHand::Campaign.new(nil, :id => id_string)

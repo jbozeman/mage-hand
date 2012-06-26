@@ -12,8 +12,8 @@ module MageHand
     inflate_if_nil :banner_image_url, :play_status, :looking_for_players, :created_at, :updated_at
     
     # Player/GM Only
-    attr_simple :lat, :lng
-    inflate_if_nil :lat, :lng
+    attr_instance :location, :class_name => 'Location'
+    inflate_if_nil :location
     
     attr_array :players, :class_name => 'OPUser'
     inflate_if_nil :players
