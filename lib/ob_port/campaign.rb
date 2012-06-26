@@ -54,15 +54,21 @@ module MageHand
     # Get all of the wiki pages for this campaign. Includes adventure log posts
     # which are just a type of wiki page.
     # @return [Array] array of wiki pages.
-    def wiki_pages
-      @wiki_pages ||= MageHand::WikiPage.load_wiki_pages(self)
+    def all_wiki_pages
+      @all_wiki_pages ||= MageHand::WikiPage.load_wiki_pages(self)
     end
-    
+
+    # Get the wiki pages for this campaign which are not adventure log posts.
+    # @return [Array] array of wiki pages.
+    def wiki_pages
+      @wiki_pages ||= all_wiki_pages.select{|page| !page.is_post?}
+    end
+
     # Get all of the adventure log posts for this campaign. These are not currently
     # sorted by post_time, oldest first.
     # @return [Array] sorted array of adventure log posts.
     def posts
-      @posts ||= wiki_pages.select{|page| page.is_post?}.sort_by(&:post_time)
+      @posts ||= all_wiki_pages.select{|page| page.is_post?}.sort_by(&:post_time)
     end
      
      protected

@@ -54,19 +54,33 @@ class TestCampaign < Test::Unit::TestCase
       assert_equal campaign.humanized_role, campaign.role_as_title_string, 'Deprecated role_as_title_string should produce the same result.'
     end
 
-    should 'be able to return its wiki pages and adventure logs' do
-      @campaign = MageHand::Campaign.new(nil, @mini_fields)
-      MageHand::WikiPage.expects(:load_wiki_pages).with(@campaign).returns([
-        MageHand::WikiPage.new(nil, {id: 'asdfadf0', type: 'WikiPage'}),
-        MageHand::WikiPage.new(nil, {id: 'asdfadf1', type: 'Post', post_time: '2008-04-24T22:00:00Z'}),
-        MageHand::WikiPage.new(nil, {id: 'asdfadf2', type: 'WikiPage'}),
-        MageHand::WikiPage.new(nil, {id: 'asdfadf3', type: 'Post', post_time: '2007-04-24T22:00:00Z'})
-        ])
+    context 'with wiki pages' do
+      setup do
+        @campaign = MageHand::Campaign.new(nil, @mini_fields)
+        @page_array = [
+          MageHand::WikiPage.new(nil, {id: 'asdfadf0', type: 'WikiPage'}),
+          MageHand::WikiPage.new(nil, {id: 'asdfadf1', type: 'Post', post_time: '2008-04-24T22:00:00Z'}),
+          MageHand::WikiPage.new(nil, {id: 'asdfadf2', type: 'WikiPage'}),
+          MageHand::WikiPage.new(nil, {id: 'asdfadf3', type: 'Post', post_time: '2007-04-24T22:00:00Z'})
+          ]
+        MageHand::WikiPage.expects(:load_wiki_pages).with(@campaign).returns(@page_array)
+      end
 
-      assert_equal 4, @campaign.wiki_pages.count, 'should have 3 pages total'
-      assert_equal 2, @campaign.posts.count, 'should have 1 post'
-      assert_equal 'asdfadf3', @campaign.posts.first.id
-      assert_equal 'asdfadf1', @campaign.posts.last.id
+      should 'be able to return its wiki pages and adventure logs' do\
+        assert_equal 4, @campaign.all_wiki_pages.count, 'should have 4 pages total'
+      end
+
+      should 'return just the adventure logs' do
+        assert_equal 2, @campaign.posts.count, 'should have 2 posts'
+        assert_equal 'asdfadf3', @campaign.posts.first.id
+        assert_equal 'asdfadf1', @campaign.posts.last.id
+      end
+
+      should 'return just the pages that are not adventure logs' do
+        assert_equal 2, @campaign.wiki_pages.count, 'should have 2 pages'
+        assert @campaign.wiki_pages.map(&:id).include?('asdfadf0')
+        assert @campaign.wiki_pages.map(&:id).include?('asdfadf2')
+      end
     end
 
     should 'know its url' do
