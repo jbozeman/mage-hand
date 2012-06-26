@@ -19,4 +19,6 @@ group :development do
   gem "mocha", ">=0.9.8"
   # gem "redgreen"
   gem "webmock", ">=1.6.2"
+  gem "yard"
+  gem "RedCloth"
 end

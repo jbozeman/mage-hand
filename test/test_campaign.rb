@@ -1,14 +1,6 @@
 require 'helper'
 
 class TestCampaign < Test::Unit::TestCase
-  context 'an instance of the Campaign class' do
-    should 'know its url' do
-      id_string = 'asdf12341asdf1234'
-      campaign = MageHand::Campaign.new(nil, :id => id_string)
-      assert_equal "/v1/campaigns/#{id_string}.json", campaign.send(:individual_url)
-    end
-  end
-  
   context 'the Campaign class' do
     setup do
       @mini_fields = {
@@ -39,6 +31,45 @@ class TestCampaign < Test::Unit::TestCase
       @full_fields.each do |key, value|
         assert_equal campaign.send(key), value
       end     
+    end
+  end
+
+  context 'A Campaign instance' do
+    setup do
+      @mini_fields = {
+        :id => 'asdf12341asdf1234',
+        :name => 'Fellowship of the Ring',
+        :campaign_url => 'http://www.obsidianportal.com/campaigns/fellowship-of-the-ring',
+        :visibility => 'public',
+        :role => 'player'
+      }
+    end
+
+    should 'report title case player role' do
+      campaign = MageHand::Campaign.new(nil, @mini_fields)
+      assert_equal 'Player', campaign.humanized_role
+      assert_equal campaign.humanized_role, campaign.role_as_title_string, 'Deprecated role_as_title_string should produce the same result.'
+      campaign.role = 'game_master'
+      assert_equal 'Game Master', campaign.humanized_role
+      assert_equal campaign.humanized_role, campaign.role_as_title_string, 'Deprecated role_as_title_string should produce the same result.'
+    end
+
+    should 'be able to return its wiki pages and adventure logs' do
+      @campaign = MageHand::Campaign.new(nil, @mini_fields)
+      MageHand::WikiPage.expects(:load_wiki_pages).with(@campaign).returns([
+        MageHand::WikiPage.new(nil, {id: 'asdfadf0', type: 'WikiPage'}),
+        MageHand::WikiPage.new(nil, {id: 'asdfadf1', type: 'Post'}),
+        MageHand::WikiPage.new(nil, {id: 'asdfadf2', type: 'WikiPage'})
+        ])
+
+      assert_equal 3, @campaign.wiki_pages.count, 'should have 3 pages total'
+      assert_equal 1, @campaign.posts.count, 'should have 1 post'
+    end
+
+    should 'know its url' do
+      id_string = 'asdf12341asdf1234'
+      campaign = MageHand::Campaign.new(nil, :id => id_string)
+      assert_equal "/v1/campaigns/#{id_string}.json", campaign.send(:individual_url)
     end
   end
 end
