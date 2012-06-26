@@ -1,25 +1,26 @@
 h1. mage-hand
 
-mage-hand is a ghostly hand that reaches across the internet to access the Obsidian Portal API. At the moment, mage-had only works with Rails Apps. Support for other things is coming soon.
+mage-hand is a ghostly hand that reaches across the internet to access the
+Obsidian Portal API. This gem can be used with any ruby program, but has some special support for Rails Apps.
 
 h2. Warning
 
-The Obsidian Portal API is new and in a lot of flux. mage-hand is also new and in a lot of flux. Together these make a very unstable combination. Use with caution.
+Right now mage-hand is being extracted from code that meets my needs in other projects. It is kind of incomplete, though getting better. Contributions are welcome.
 
 h2. Getting Started
 
 You can install mage-hand with the usual 
 
-sudo gem install mage-hand
+bc. sudo gem install mage-hand
 
-or you can add mage-hand to your gemfile with the following...
+or you can add mage-hand to your Gemfile with the following...
 
 bc. gem 'mage-hand'
 
 h2. Usage
 
-MageHand handles the OAuth authentication to Obsidian Portal for you. To do that from a Rails controller
-try this...
+MageHand handles the OAuth authentication to Obsidian Portal for you. To do
+that from a Rails controller try this...
 
 bc. class CoolController < ApplicationController
   include MageHand
@@ -53,6 +54,6 @@ h2. Contributing to mage-hand
 
 h2. Copyright
 
-Copyright (c) 2010 Steven Hammond. See LICENSE.txt for
+Copyright (c) 2010-2012 Steven Hammond and licensed under the MIT license. See "LICENSE.txt":https://github.com/shammond42/mage-hand/blob/master/LICENSE.txt for
 further details.
 
