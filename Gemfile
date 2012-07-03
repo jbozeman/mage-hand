@@ -21,4 +21,9 @@ group :development do
   gem "webmock", ">=1.6.2"
   gem "yard"
   gem "RedCloth"
+
+  gem "guard"
+  gem "guard-yard"
+  gem "guard-minitest"
+  gem "growl"
 end
