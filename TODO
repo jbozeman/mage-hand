@@ -7,4 +7,12 @@ Look at REE singularize of Campaign vs. Campaign(s)
 
 Fix instructions
 
+Refactor so we don't need to pass the client variable around everywhere
+
 Make inflate_if_nil an option to attr_simple and attr_instance
+
+Documentation
+* Get version number in readme
+* Get special attributed identified as such
+
+
