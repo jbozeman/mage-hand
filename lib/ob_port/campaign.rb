@@ -1,9 +1,19 @@
 module MageHand
   class Campaign < Base
     # public mini-object methods
-    attr_simple :name, :campaign_url, :role, :visibility
+
+    # @return [String] the name of this campaign.
+    attr_simple :name, :campaign_url
+
+    # @return [String] the current users role in the campaign, either 'player' or 'game_master'.
+    # @see #humanized_role
+    attr_simple :role, :visibility
     
+    # @return [String] the dashed slug that identifies this campaign on Obsidian Portal.
     attr_simple :slug
+
+    # @return [OPUser] the game master for this campaign. Will try to inflate the object if
+    # currently nil
     attr_instance :game_master, :class_name => 'OPUser'
     inflate_if_nil :game_master, :slug
     
@@ -45,7 +55,7 @@ module MageHand
       humanized_role
     end
 
-    # The current user's role in this campaign
+    # The current user's role in this campaign as a human readable string.
     # @return [String] one of 'Player' or 'Game Master'
     def humanized_role
       role.titleize
