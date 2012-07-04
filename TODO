@@ -3,6 +3,8 @@ Trim down the dependencies: Don't include rails for just some string manipulatio
 Base
   Should be able to initialize from a json string or an attribute hash
 
+Campaign
+* created_at and updated_at should return date objects
 Look at REE singularize of Campaign vs. Campaign(s)
 
 Fix instructions
@@ -16,3 +18,4 @@ Documentation
 * Get special attributed identified as such
 
 
+Create yard customization to simplify documentation
