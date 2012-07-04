@@ -82,7 +82,7 @@ module MageHand
       json_hash.to_json(*a)
     end
         
-    protected
+    private
 
       def self.attr_simple(*method_names)
         @@simple_attributes[self.name] = [] unless @@simple_attributes[self.name]
@@ -150,6 +150,9 @@ module MageHand
 
     # This is here because we need to define attr_simple first but I don
     # want attr_simple in the public signature of the Base Class
+
+    # Obsidian Portal hash id for this object
+    # @return [String] hash id
     attr_simple :id
   end
 end

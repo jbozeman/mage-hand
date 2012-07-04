@@ -1,30 +1,76 @@
 module MageHand
   class Campaign < Base
-    # public mini-object methods
-
-    # @return [String] the name of this campaign.
+    # @!attribute name
+    #   @return [String] the name of this campaign.
     attr_simple :name, :campaign_url
 
-    # @return [String] the current users role in the campaign, either 'player' or 'game_master'.
-    # @see #humanized_role
+    # @!attribute role
+    #   @return [String] the current users role in the campaign, either 'player' or 'game_master'.
+    #   @see #humanized_role
     attr_simple :role, :visibility
     
-    # @return [String] the dashed slug that identifies this campaign on Obsidian Portal.
+    # @!attribute slug
+    #   @note will attempt to retrieve the full object from Obsidian Portal if this is nil.
+    #   @return [String] the dashed slug that identifies this campaign on Obsidian Portal.
     attr_simple :slug
+    inflate_if_nil :slug
 
-    # @return [OPUser] the game master for this campaign. Will try to inflate the object if
-    # currently nil
+    # @!attribute game_master
+    #   @note will attempt to retrieve the full object from Obsidian Portal if this is nil.
+    #   @return [OPUser] the game master for this campaign.
     attr_instance :game_master, :class_name => 'OPUser'
-    inflate_if_nil :game_master, :slug
+    inflate_if_nil :game_master
     
-    # Private/Friends
-    attr_simple :banner_image_url, :play_status, :looking_for_players, :created_at, :updated_at
-    inflate_if_nil :banner_image_url, :play_status, :looking_for_players, :created_at, :updated_at
+    # Visiblity: Private/Friends
+
+    # @!attribute banner_image_url
+    #   @note will attempt to retrieve the full object from Obsidian Portal if this is nil.
+    #   @note if the campaign is private this attribute is only visible to GM, players, and friends
+    #   @return [String] url to retrieve the banner image
+    attr_simple :banner_image_url
+    inflate_if_nil :banner_image_url
     
-    # Player/GM Only
+    # @!attribute play_status
+    #   @note will attempt to retrieve the full object from Obsidian Portal if this is nil.
+    #   @note if the campaign is private this attribute is only visible to GM, players, and friends
+    #   @return [String] current campaign status. One of "in_planning", "current_playing", "on_hiatus",
+    #     "completed"
+    attr_simple :play_status
+    inflate_if_nil :play_status
+
+    # @!attribute looking_for_players
+    #   @note will attempt to retrieve the full object from Obsidian Portal if this is nil.
+    #   @note if the campaign is private this attribute is only visible to GM, players, and friends
+    #   @see #looking_for_players?
+    #   @return [Boolean] is this campaign looking for players
+    attr_simple :looking_for_players
+    inflate_if_nil :looking_for_players
+
+    # @!attribute created_at
+    #   @note will attempt to retrieve the full object from Obsidian Portal if this is nil.
+    #   @note if the campaign is private this attribute is only visible to GM, players, and friends
+    #   @return [String] date the campaign was created
+    attr_simple :created_at
+    inflate_if_nil :created_at
+
+    # @!attribute updated_at
+    #   @note will attempt to retrieve the full object from Obsidian Portal if this is nil.
+    #   @note if the campaign is private this attribute is only visible to GM, players, and friends
+    #   @return [String] date the campaign was updated
+    attr_simple :updated_at
+    inflate_if_nil :updated_at
+
+    # @!attribute location
+    #   @note will attempt to retrieve the full object from Obsidian Portal if this is nil.
+    #   @note if the campaign is private this attribute is only visible to GM, players, and friends
+    #   @return [Location] the latitude and longitude of the campagin
     attr_instance :location, :class_name => 'Location'
     inflate_if_nil :location
     
+    # @!attribute players
+    #   @note will attempt to retrieve the full object from Obsidian Portal if this is nil.
+    #   @note if the campaign is private this attribute is only visible to GM, players, and friends
+    #   @return [Array<OPUser>] array of players in this campaign
     attr_array :players, :class_name => 'OPUser'
     inflate_if_nil :players
 

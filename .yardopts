@@ -1,2 +1,2 @@
---no-private --protected app/**/*.rb - README LICENSE CHANGELOG TODO
+--no-private --protected app/**/*.rb - README.textile LICENSE.txt CHANGELOG TODO
 
