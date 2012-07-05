@@ -7,6 +7,7 @@ module MageHand
   # @note The Obsidian Portal API does not allow creating or updating of campaigns, so any changes
   #   to the campaign cannot be written back to Obsidian Portal
   # @todo created_at and updated_at should return strings
+  # @todo make attributes readonly because the changes cannot be saved
   # @author Steven Hammond (@shammond42)
   class Campaign < Base
     # @!attribute name
