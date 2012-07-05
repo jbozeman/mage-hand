@@ -1,6 +1,7 @@
  0.5.0
    - Added documentation and tests for
    -- Campaign
+   -- Location
    
  0.4.1
    - Renamed User to OPUser to avoid collisions with the user objects in other apps
