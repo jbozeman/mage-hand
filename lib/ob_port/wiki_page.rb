@@ -1,7 +1,8 @@
 module MageHand
+  # @todo model slug behavior correctly. It should change based on name. Need to test to see if we
+  #    can save with a different slug and name. If not it should be read only. Changes to name should
+  #    also change the slug (on save?)
   class WikiPage < Base
-    ROLES = {'game_master' => 'Game Master', 'player' => 'Player'}
-    
     # public methods
     attr_simple :slug, :name, :wiki_page_url, :created_at, :updated_at
     
@@ -56,8 +57,6 @@ module MageHand
         if @response.code.to_i == 201
           self.update_attributes!(JSON.parse(@response.body))
         else
-puts @response.body
-puts @response.code
           raise WikiPageExists if @response.body =~ /Name has already been taken/
           raise WikiPageError(@response.body)
         end
