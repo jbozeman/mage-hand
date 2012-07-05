@@ -4,7 +4,7 @@ module MageHand
   # @note Several attributes may be nil if the object was instantiated from a min-object. Accessing
   #   these attributes while nil will cause the full set of data to be fetched from OP and the current
   #   instance inflated with that data.
-  # @author Steven Hammond
+  # @author Steven Hammond (@shammond42)
   class Campaign < Base
     # @!attribute name
     #   @return [String] the name of this campaign.
