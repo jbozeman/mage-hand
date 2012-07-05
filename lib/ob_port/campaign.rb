@@ -1,4 +1,10 @@
 module MageHand
+  # Describes a campaign on Obsidian Portal. Includes finders to get the campaign by id or slub
+  # as well as instance methods for the various attributes.
+  # @note Several attributes may be nil if the object was instantiated from a min-object. Accessing
+  #   these attributes while nil will cause the full set of data to be fetched from OP and the current
+  #   instance inflated with that data.
+  # @author Steven Hammond
   class Campaign < Base
     # @!attribute name
     #   @return [String] the name of this campaign.
