@@ -2,6 +2,7 @@ module MageHand
   # @todo model slug behavior correctly. It should change based on name. Need to test to see if we
   #    can save with a different slug and name. If not it should be read only. Changes to name should
   #    also change the slug (on save?)
+  # @todo move to_hash and to_json into base.
   class WikiPage < Base
     # public methods
 
