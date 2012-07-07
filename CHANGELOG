@@ -2,6 +2,7 @@
    - Added documentation and tests for
    -- Campaign
    -- Location
+   -- WikiPage
    
  0.4.1
    - Renamed User to OPUser to avoid collisions with the user objects in other apps

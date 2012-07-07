@@ -4,31 +4,118 @@ module MageHand
   #    also change the slug (on save?)
   class WikiPage < Base
     # public methods
-    attr_simple :slug, :name, :wiki_page_url, :created_at, :updated_at
+
+    # @!attribute slug
+    #   @return [String] the slug for referencing htis page in a url
+    attr_simple :slug
+
+    # @!attribute name
+    #   @return [String] the name (title) for this page
+    attr_simple :name
+
+    # @!attribute wiki_page_url
+    #   @return [String] the URL for this page
+    attr_simple :wiki_page_url
+
+    # @!attribute created_at
+    #  @todo return a date instead of a string
+    #  @return [String] the date this page was created
+    attr_simple :created_at
+
+    # @!attribute updated_at
+    #  @todo return a date instead of a string
+    #  @return [String] the date this page was last updated
+    attr_simple :updated_at
     
     # Private/Friends
-    attr_simple :type, :is_game_master_only, :body, :body_html, :tags
-    inflate_if_nil :body, :body_html
+
+    # @!attribute type
+    #   @note if the campaign is private this attribute is only visible to GM, players, and friends
+    #   @return [String] 'Post' or 'WikiPage' depending on the type of page this is
+    attr_simple :type
+
+    # @!attribute is_game_master_only
+    #   @note if the campaign is private this attribute is only visible to GM, players, and friends
+    #   @see #is_game_master_only?
+    #   @return [Boolean] true if this page can only be seen by the game master
+    attr_simple :is_game_master_only
+    alias :is_game_master_only? :is_game_master_only
+
+    # @!attribute body
+    #   @note will attempt to retrieve the full object from Obsidian Portal if this is nil.
+    #   @note if the campaign is private this attribute is only visible to GM, players, and friends
+    #   @return [String] The textile markup for this page
+    attr_simple :body
+    inflate_if_nil :body
+
+    # @!attribute body
+    #   @note will attempt to retrieve the full object from Obsidian Portal if this is nil.
+    #   @note if the campaign is private this attribute is only visible to GM, players, and friends
+    #   @todo This should not be writeable
+    #   @return [String] The html markup for this page
+    attr_simple :body_html
+    inflate_if_nil  :body_html
+
+    # @!attribute tags
+    #   @note if the campaign is private this attribute is only visible to GM, players, and friends
+    #   @return [Array<String>] list of tags assigned to this page
+    attr_simple :tags
     
-    # TODO Move these to the posts subclass when we have it.
-    attr_simple :post_title, :post_tagline, :post_time
+    # @!attribute post_title
+    #   @note if the campaign is private this attribute is only visible to GM, players, and friends
+    #   @note this will be nil unless type = 'Post'
+    #   @see #type
+    #   @return [String] The title of this post
+    attr_simple :post_title
+
+    # @!attribute post_tagline
+    #   @note if the campaign is private this attribute is only visible to GM, players, and friends
+    #   @note this will be nil unless type = 'Post'
+    #   @see #type
+    #   @return [String] The tag line of this post
+    attr_simple :post_tagline
+
+    # @!attribute post_time
+    #   @note if the campaign is private this attribute is only visible to GM, players, and friends
+    #   @note this will be nil unless type = 'Post'
+    #   @see #type
+    #   @todo Return a date instead of a string
+    #   @return [String] The timestamp for this post, typically the date/time of the events described
+    #     in the post
+    attr_simple :post_time
     
     # GM Only fields
-    attr_simple :game_master_info, :game_master_info_markup
-    inflate_if_nil :game_master_info, :game_master_info_markup
-    
+
+    # @!attribute game_master_info
+    #   @note this field will only be visible if the current user is the game master for this campaign.
+    #   @note will attempt to retrieve the full object from Obsidian Portal if this is nil.
+    #   @return [String] The textile markup of the game master section of this page
+    attr_simple :game_master_info
+    inflate_if_nil :game_master_info
+
+    # @!attribute game_master_info_html
+    #   @note this field will only be visible if the current user is the game master for this campaign.
+    #   @note will attempt to retrieve the full object from Obsidian Portal if this is nil.
+    #   @return [String] The html markup of the game master section of this page
+    attr_simple :game_master_info_html
+    inflate_if_nil :game_master_info_html
+
+    # @!attribute campaign
+    #   @note will attempt to retrieve the full object from Obsidian Portal if this is nil.
+    #   @return [Campaign] the campaign this wiki page belongs to.
     attr_instance :campaign
     inflate_if_nil :campaign
     
+    # Load all of the wiki pages for a campaign
+    # @param [Campaign] campaign The campaign to retrieve the pages for.
+    # @return [Array<WikiPage>] array of wiki pages. This will not be fully inflated.
     def self.load_wiki_pages(campaign)
       wiki_hashes = JSON.parse(campaign.client.access_token.get(collection_url(campaign.id)).body)
       wiki_hashes.map {|hash| WikiPage.new(campaign.client, hash)}
     end
     
-    def campaign=(campaign_hash)
-      @campaign = Campaign.new(client, campaign_hash)
-    end
-    
+    # Is this page a regular page or an adventure log post?
+    # @return [Boolean] true if this page is an adventure log posting
     def is_post?
       type == 'Post'
     end
