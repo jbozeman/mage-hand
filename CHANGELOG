@@ -3,6 +3,14 @@
    -- Campaign
    -- Location
    -- WikiPage
+
+   - Base
+   -- to_hash and to_json were moved here
+   
+   - WikiPage
+   -- save! returns self
+   -- added is_game_master_only? method
+   -- to_hash and to_json were moved into the base class
    
  0.4.1
    - Renamed User to OPUser to avoid collisions with the user objects in other apps

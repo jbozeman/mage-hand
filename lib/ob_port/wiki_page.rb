@@ -121,19 +121,10 @@ module MageHand
       type == 'Post'
     end
     
-    def to_hash
-      attribute_hash = {}
-      simple_attributes.each do |att|
-        attribute_hash[att] = self.send(att) unless self.send(att).nil?
-      end
-      
-      attribute_hash
-    end
-    
-    def to_json
-      to_hash.to_json
-    end
-    
+    # saves a new wiki page to Obsidian Portal, raising an exception in the event the
+    # save fails.
+    # @todo this should also update an existing wiki page
+    # @return [WikiPage] self
     def save!
       if id # save existing wiki pae
         
@@ -149,6 +140,8 @@ module MageHand
           raise WikiPageError(@response.body)
         end
       end
+
+      self
     end
     
     private

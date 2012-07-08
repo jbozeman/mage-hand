@@ -137,7 +137,7 @@ module MageHand
       @posts ||= all_wiki_pages.select{|page| page.is_post?}.sort_by(&:post_time)
     end
      
-     protected
+  protected
 
      def individual_url
        "/v1/campaigns/#{self.id}.json"

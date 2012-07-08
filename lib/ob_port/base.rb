@@ -70,18 +70,24 @@ module MageHand
     def attributes
       self.class.attributes
     end
-
-    def to_json(*a)
-      json_hash = {}
-      self.simple_attributes.each do |attribute|
-        json_hash[attribute.to_s] = self.send(attribute) if self.send(attribute)
+    
+    # turn the attributes of this object into a hash
+    # @return [Hash] the hashed attributes of this object
+    def to_hash
+      attribute_hash = {}
+      simple_attributes.each do |att|
+        attribute_hash[att] = self.send(att) unless self.send(att).nil?
       end
-      self.instance_attributes.each do |attribute|
-        json_hash[attribute.to_s] = self.send(attribute).to_json if self.send(attribute)
-      end
-      json_hash.to_json(*a)
+      
+      attribute_hash
     end
-        
+    
+    # JSON representation of this object
+    # @return [String] json string representing this object
+    def to_json
+      to_hash.to_json
+    end
+
     private
 
       def self.attr_simple(*method_names)
