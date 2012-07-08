@@ -3,10 +3,11 @@
    -- Campaign
    -- Location
    -- WikiPage
+   -- various error classes
 
    - Base
    -- to_hash and to_json were moved here
-   
+
    - WikiPage
    -- save! returns self
    -- added is_game_master_only? method
