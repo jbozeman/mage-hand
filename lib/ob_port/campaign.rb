@@ -12,12 +12,21 @@ module MageHand
   class Campaign < Base
     # @!attribute name
     #   @return [String] the name of this campaign.
-    attr_simple :name, :campaign_url
+    attr_simple :name
+
+    # @!attribute campaign_url
+    # @todo make this return a URL object
+    # @return [String] the url for accessing this campaign on OP
+    attr_simple :campaign_url
 
     # @!attribute role
     #   @return [String] the current users role in the campaign, either 'player' or 'game_master'.
     #   @see #humanized_role
-    attr_simple :role, :visibility
+    attr_simple :role
+
+    # @!attribute visibility
+    # @return [String] 'public', 'friends' or 'private'
+    attr_simple :visibility
     
     # @!attribute slug
     #   @note will attempt to retrieve the full object from Obsidian Portal if this is nil.
